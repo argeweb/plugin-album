@@ -1,0 +1,93 @@
+{% import "backend/macros.html" as s with context %}
+{% extends s.layout() %}
+{% block header %}
+    <div class="row">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary btn-block" id="insert-album">新增相簿</button>
+        </div>
+    </div>
+{% endblock %}
+{% block layout_content %}
+{% set list = context["admin_detail"] %}
+<div class="wrapper wrapper-content">
+    <div class="row album-box" style="margin-left: 0">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 margin-0 padding-1  form-group">
+            <div style="height: 100%;
+    width: 100%;
+    min-height: 180px;">
+                <div class="input-group" style="display: inline-block">
+                    <input type="text" class="form-control file_picker_div image hidden" id="album_photo" tabindex="0"
+                           value="">
+                    <a href="#" class="btn btn-primary filepicker"><i class="fa fa-photo"></i> 選取圖片</a>
+                </div>
+            </div>
+        </div>
+        {%- set n = 0 -%}
+    {% for item in list %}
+        {%- set n = n + 1 -%}
+        {%- set photo = item.file.get() -%}
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 margin-0 padding-1">
+            <div class="album">
+                <a href="/{{ photo.path }}" class="album-item" data-gallery="">
+                    <div class="image" style="background-image: url('/{{ photo.path }}');"></div>
+                    <div class="album-name">
+                        <span class="album-name-span">{{ photo.name }}
+                        <br></span>
+                        <small></small>
+                    </div>
+                </a>
+            </div>
+            <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+                <div class="slides"></div>
+                <h3 class="title"></h3>
+                <a class="prev">‹</a>
+                <a class="next">›</a>
+                <a class="close">×</a>
+                <a class="play-pause"></a>
+                <ol class="indicator"></ol>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {{ s.next_page_link() }}
+</div>
+<script>
+    (function(page){
+        page.key = '{{ print_key(album_item) }}';
+        $("#insert-album").click(function(){
+            backend.swal({
+                title: '請輸入相簿名稱',
+                inputPlaceholder: '未命名相簿',
+                input: 'text',
+                showCancelButton: true,
+                confirmButtonText: '新增',
+                cancelButtonText: '取消',
+                showLoaderOnConfirm: true,
+                preConfirm: function (name) {
+                    return new Promise(function (resolve, reject) {
+                        json_async("/admin/album/create?name="+name, null, function(data){
+                            if (data.info == "done"){
+                                resolve(data)
+                            }else{
+                                reject(data.msg)
+                            }
+                        });
+                    })
+                },
+                allowOutsideClick: false
+            }).then(function (data) {
+                backend.iframe.reload();
+            });
+        });
+        $("#album_photo").change(function(){
+            json_async("/admin/album/insert?album="+page.key+"&photo="+$(this).data("key"), null, function(data){
+                if (data.info == "done"){
+                    backend.iframe.reload();
+                }else{
+                }
+            });
+        });
+    })(page);
+</script>
+{% endblock %}

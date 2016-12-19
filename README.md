@@ -1,2 +1,2 @@
 "# plugin-album" 
-"# plugin-album ¬ÛÃ¯¥\¯à" 
+ç›¸ç°¿åŠŸèƒ½
