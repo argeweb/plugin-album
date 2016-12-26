@@ -76,13 +76,13 @@
                 },
                 allowOutsideClick: false
             }).then(function (data) {
-                backend.iframe.reload();
+                backend.content_iframe.reload();
             });
         });
         $("#album_photo").change(function(){
             json_async("/admin/album/insert?album="+page.key+"&photo="+$(this).data("key"), null, function(data){
                 if (data.info == "done"){
-                    backend.iframe.reload();
+                    backend.content_iframe.reload();
                 }else{
                 }
             });
