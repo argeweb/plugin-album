@@ -46,7 +46,7 @@
                 showLoaderOnConfirm: true,
                 preConfirm: function (name) {
                     return new Promise(function (resolve, reject) {
-                        json_async("/admin/album/create?name="+name, null, function(data){
+                        json_async("/admin/album/album/create?name="+name, null, function(data){
                             if (data.info == "done"){
                                 resolve(data)
                             }else{

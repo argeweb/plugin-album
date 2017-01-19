@@ -28,7 +28,7 @@
         {%- set photo = item.file.get() -%}
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 margin-0 padding-1">
             <div class="album">
-                <a href="/{{ photo.path }}" class="album-item" data-gallery="">
+                <a href="/{{ photo.path }}" class="album-item" data-gallery="" target="_blank">
                     <div class="image" style="background-image: url('/{{ photo.path }}');"></div>
                     <div class="album-name">
                         <span class="album-name-span">{{ photo.name }}
