@@ -19,7 +19,7 @@ class Album(Controller):
         pagination_limit = 10
 
     class Scaffold:
-        display_properties_in_list = ('name', 'image', 'is_enable', 'category')
+        display_in_list = ('name', 'image', 'is_enable', 'category')
 
     @route_menu(list_name=u'backend', text=u'活動相簿', sort=315, group=u'內容管理', need_hr=True)
     def admin_list(self):
