@@ -16,7 +16,6 @@ import json
 class Album(Controller):
     class Meta:
         components = (scaffold.Scaffolding, Pagination, Search)
-        pagination_limit = 50
 
     class Scaffold:
         display_in_list = ('name', 'image', 'is_enable', 'category')

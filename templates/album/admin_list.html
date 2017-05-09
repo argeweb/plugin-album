@@ -35,7 +35,7 @@
 <script>
     (function(page){
         $("#insert-album").click(function(){
-            backend.swal({
+            swal({
                 title: '請輸入相簿名稱',
                 inputPlaceholder: '未命名相簿',
                 input: 'text',
@@ -56,7 +56,7 @@
                 },
                 allowOutsideClick: false
             }).then(function (data) {
-                backend.content_area.reload();
+                content_area.reload();
             });
         });
     })(page);
