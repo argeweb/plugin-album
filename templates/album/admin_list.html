@@ -1,8 +1,8 @@
 {% extends "backend/list_layout.html" %}
-{% block layout_header %}<button class="btn btn-primary btn-block" id="insert-album">新增相簿</button>{% endblock %}
-{% block layout_content %}
-{% set list = context[scaffolding.plural] %}
-<div class="wrapper wrapper-content">
+{% block page_header %}<button class="btn btn-primary btn-block" id="insert-album">新增相簿</button>{% endblock %}
+
+{% block page_content %}
+    {% set list = context[scaffolding.plural] %}
     <div class="row album-box" style="margin-left: 0">
     {%- set n = 0 -%}
     {% for item in list %}
@@ -31,7 +31,9 @@
     </div>
     </div>
     {{ s.next_page_link() }}
-</div>
+{% endblock %}
+
+{% block page_scripts %}
 <script>
     (function(page){
         $("#insert-album").click(function(){

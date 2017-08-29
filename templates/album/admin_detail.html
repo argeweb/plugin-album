@@ -1,8 +1,6 @@
 {% extends "backend/list_layout.html" %}
-{% block layout_header %}{% endblock %}
-{% block layout_content %}
+{% block page_content %}
 {% set list = context["admin_detail"] %}
-<div class="wrapper wrapper-content">
     <div class="row album-box" style="margin-left: 0">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 margin-0 padding-1 album-upload-box input-group">
             <div class="form-group">
@@ -42,12 +40,14 @@
     {% endfor %}
     </div>
     {{ s.next_page_link() }}
-</div>
+{% endblock %}
+
+{% block page_scripts %}
 <script>
     (function(page){
         page.key = '{{ print_key(album_item) }}';
         $("#insert-album").click(function(){
-            backend.swal({
+            swal({
                 title: '請輸入相簿名稱',
                 inputPlaceholder: '未命名相簿',
                 input: 'text',
@@ -68,13 +68,13 @@
                 },
                 allowOutsideClick: false
             }).then(function (data) {
-                backend.content_area.reload();
+                content_area.reload();
             });
         });
         $("#album_photo").change(function(){
             json_async("{{ uri('admin:album:album:insert') }}?album="+page.key+"&photo="+$(this).data("key"), null, function(data){
                 if (data.info == "done"){
-                    backend.content_area.reload();
+                    content_area.reload();
                 }else{
                 }
             });
