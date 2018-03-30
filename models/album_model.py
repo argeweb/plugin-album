@@ -14,7 +14,7 @@ from plugins.application_user.models.application_user_model import ApplicationUs
 class AlbumModel(BasicModel):
     name = Fields.StringProperty(verbose_name=u'識別名稱')
     title = Fields.StringProperty(verbose_name=u'相簿名稱')
-    creator = Fields.KeyProperty(verbose_name=u'建立者', kind=ApplicationUserModel)
+    creator = Fields.ApplicationUserProperty(verbose_name=u'建立者')
     count = Fields.IntegerProperty(verbose_name=u'相片數量', default=0)
 
     @property
